@@ -98,16 +98,17 @@ export const getContactsForDMList=async (request,response,next)=>{
 export const getAllContacts=async (request,response,next)=>{
 
      try {
-          const {searchTerm}=request.body;
+          
           const users=await User.find(
                {_id:{$ne:request.userId}},
-               "firstName lastName _id"
+               "firstName lastName _id email"
           );
           
 
           const contacts=users.map((user)=>({
                labels:user.firstName ? `${user.firstName} ${user.lastName} ` : user.email,
-          }))
+               value:user._id,
+          }));
 
           // response.cookie("jwt","",{maxAge:1,secure:true,sameSite:"None"});
           return response.status(200).json({contacts});
