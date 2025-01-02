@@ -101,7 +101,7 @@ export const getAllContacts=async (request,response,next)=>{
           
           const users=await User.find(
                {_id:{$ne:request.userId}},
-               "firstName lastName _id email"
+               "firstName lastName _id "
           );
           
 

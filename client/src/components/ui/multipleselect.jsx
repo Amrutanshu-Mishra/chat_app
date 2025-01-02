@@ -1,5 +1,3 @@
-"use client";
-
 import { Command as CommandPrimitive, useCommandState } from "cmdk";
 import { X } from "lucide-react";
 import * as React from "react";
@@ -451,7 +449,8 @@ function transToGroupOption(options, groupBy) {
       "": options,
     };
   }
-
+  console.log("Options before grouping:", options);
+  
   const groupOption = {};
   options.forEach((option) => {
     const key = option[groupBy] || "";
@@ -460,6 +459,7 @@ function transToGroupOption(options, groupBy) {
     }
     groupOption[key].push(option);
   });
+  console.log("Options after grouping:", groupOption);
   return groupOption;
 }
 

@@ -35,22 +35,24 @@ const CreateChannel = () => {
                     withCredentials:true,
                });
                console.log(response.data.contacts);
-               
-               setAllContacts(response.data.contacts);
+               console.log(Array.isArray(response.data.contacts));
+               setAllContacts(
+                    response.data.contacts.map(contact => ({
+                      label: contact.labels, // Use 'labels' for the display label
+                      value: contact.value,  // Use 'value' for the unique identifier
+                    }))
+               );
+                  
                // const sampleContacts = [
                //      { label: "Test Contact 1", value: "1" },
                //      { label: "Test Contact 2", value: "2" },
                //    ];
                //    setAllContacts(sampleContacts);
-               // console.log(allContacts);
+               console.log(allContacts);
                
           };
           getData();
      },[]);
-
-     // useEffect(() => {
-     //      console.log("Updated allContacts:", allContacts);
-     // }, [allContacts]);
      const createChannel =async () => {
           
      };
@@ -87,20 +89,16 @@ const CreateChannel = () => {
                               value={channelName}
                          />
                     </div>
-                    <div>
-                         <MultipleSelector
-                          className="rounded-lg bg-[#2c2e3b] border-none py-2 text-white"
-                          defaultOptions={allContacts}
-                          placeholder="Search Contacts"
-                          value={selectedContacts}     
-                          onChange={setSelectedContacts}
-                          emptyIndicator={
-                              <p className="text-center text-lg leading-10 text-gray-600 " >
-                                   No results found. 
-                              </p>
-                          }
-                         />
+                    <div >
+                    
                          
+                         <MultipleSelector
+                              defaultOptions={allContacts}
+                              placeholder="Search Contacts"
+                              value={selectedContacts}
+                              onChange={setSelectedContacts}
+                              
+                         />
                     </div>
                     <div>
                          <Button className="w-full bg-purple-700 hover:bg-purple-900 transition-all duration-300 "
