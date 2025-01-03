@@ -176,7 +176,7 @@ export const removeProfileImage=async (request,response,next)=>{
 export const logout=async (request,response,next)=>{
      try {
           response.cookie("jwt","",{maxAge:1,secure:true,sameSite:"None"});
-          return response.status(200).send("LogOut Successful.")
+          return response.status(200).send("LogOut Successful.");
      } catch (error) {
           console.log({error});
           return response.status(500).send("Interval Server Error");

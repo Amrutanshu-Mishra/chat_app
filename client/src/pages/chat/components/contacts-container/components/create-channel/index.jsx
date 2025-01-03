@@ -11,8 +11,6 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import Lottie from "react-lottie";
-import { animationDefaultOptions, getColor } from "@/lib/utils";
 import { apiClient } from "@/lib/api-client";
 import { GET_ALL_CONTACTS_ROUTES, HOST, SEARCH_CONTACTS_ROUTES } from "@/utils/constants";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
@@ -23,7 +21,7 @@ import MultipleSelector from "@/components/ui/multipleselect";
 const CreateChannel = () => {
      const {setSelectedChatType,setSelectedChatData}=useAppStore();
      const [newChannelModal,setNewChannelModal]=useState(false);
-     const [searchedContacts,setSearchedContacts]=useState([]);
+
 
      const [allContacts,setAllContacts]=useState([]);
      const [selectedContacts,setSelectedContacts]=useState([]);
