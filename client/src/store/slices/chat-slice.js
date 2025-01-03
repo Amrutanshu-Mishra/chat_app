@@ -19,7 +19,7 @@ export const createChatSlice=(set,get)=>({
      setDirectMessagesContacts:(directMessagesContacts)=>set({directMessagesContacts}),
      addChannel:(channel)=>{
           const channels=get().channels;
-          set({channels:[channel,...channels]})
+          set({channels:[channel,...channels]});
      },
      closeChat:()=>
           set({
