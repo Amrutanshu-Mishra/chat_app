@@ -54,7 +54,17 @@ const MessageBar=()=>{
                     }
                });
           }
-     }
+          else if (selectedChatType==="channel") {
+               socket.emit("send-channel-message",{
+                    sender:userInfo.id,
+                    content:message,
+                    messageType:"text",
+                    fileUrl:undefined,
+                    channelId:selectedChatData._id,
+               });
+          }
+          setMessage("");
+     };
 
      
      const handleAttachmentClick=()=>{
@@ -77,6 +87,7 @@ const MessageBar=()=>{
                          },
                     });
                     if (response.status===200 && response.data) {
+                         setIsUploading(false);
                          if (selectedChatType==="contact") {
                               socket.emit("sendMessage",{
                                    sender:userInfo.id,
@@ -91,6 +102,14 @@ const MessageBar=()=>{
                                         console.log("Message sent successfully:", response);
                                    }
                               });     
+                         } else if (selectedChatType==="channel") {
+                              socket.emit("send-channel-message",{
+                                   sender:userInfo.id,
+                                   content:undefined,
+                                   messageType:"file",
+                                   fileUrl:response.data.filePath,
+
+                              });
                          }
                          
                     }

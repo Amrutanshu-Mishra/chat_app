@@ -6,6 +6,8 @@ import { useEffect, useRef, useState } from "react";
 import { MdFolderZip } from "react-icons/md";
 import { IoMdArrowRoundDown } from "react-icons/io";
 import { IoCloseSharp } from "react-icons/io5";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { getColor } from "@/lib/utils";
 const MessageContainer=()=>{
      const scrollRef=useRef();
      const {selectedChatType,selectedChatData,userInfo,selectedChatMessages,setSelectedChatMessages,setFileDownloadProgress,setIsDownloading}=useAppStore();
@@ -38,7 +40,7 @@ const MessageContainer=()=>{
 
      useEffect(()=>{
           if (scrollRef.current) {
-               scrollRef.current.scrollIntoView({behaviour:"smooth"});
+               scrollRef.current.scrollIntoView({ behavior: "smooth" });
           }
      },[selectedChatMessages]);
 
@@ -63,6 +65,9 @@ const MessageContainer=()=>{
                          )}
                          {
                               selectedChatType==="contact" && renderDMMessages(message)
+                         }
+                         {
+                              selectedChatType==="channel" && renderChannelMessages(message)
                          }
                     </div>
                )   
@@ -130,10 +135,42 @@ const MessageContainer=()=>{
                     {moment(message.timestamp).format("LT")}
                </div>
           </div>
+     );    
 
-          
 
-     )    
+     const renderChannelMessages=(message)=>{
+          return(
+               <div className={`mt-5 ${message.sender._id !==userInfo.id ? "text-left":"text-right" } `} >
+                    {
+                         message.messageType==="text" && (
+                         <div className={`${message.sender._id === userInfo.id ? "bg-[#8417ff]/5 text-[#8417ff]/90 border-[#8417ff]/50":"bg-[#2a2b33]/5 text-white/80 border-[#ffffff]/20"}border inline-block p-4 rounded my-1 max-w-[50%] break-words`} >
+                              {message.content}
+                         </div>
+                              
+                    )}
+                    {
+                         message.sender._id!==userInfo.id ? <div className="flex items-center justify-start gap-3" >
+                              <Avatar className="h-12 w-12 rounded-full overflow-hidden">
+                                                                      {
+                                                                           selectedChatData.image ? 
+                                                                           (<AvatarImage src={`${HOST}/${selectedChatData.image}`} alt="profile" className="object-cover w-full bg-black"/>):
+                              
+                                                                           (<div className= {` uppercase h-12 w-12 text-lg border-[1px] flex items-center justify-center rounded-full ${getColor(selectedChatData.color)}`}>
+                                                                           {
+                                                                                selectedChatData.firstName
+                                                                                ? selectedChatData.firstName
+                                                                                : selectedChatData.email
+                                                                                
+                                                                           }
+                                                                           </div>)
+                                                                      }
+                                                                 </Avatar>
+                         </div> : <></>
+                    }
+               </div>
+          )
+     }
+
      return(
           <div className="flex-1 overflow-y-auto scrollbar-hidden p-4 px-8 md:w-[65vw] lg:w-[70vw] xl:w-[80vw] w-full ">
                {renderMessages()}

@@ -37,8 +37,17 @@ export const SocketProvider=({children})=>{
                          addMessage(message);
                     }
                };
+
+               const handleReceiveChannelMessage=(message)=>{
+                    const {selectedChatData,selectedChatType,addMessage}=useAppStore.getState();
+
+                    if (selectedChatType!==undefined && selectedChatData._id===message.channelId) {
+                         addMessage(message);
+                    }
+               }
+
                socket.current.on("receiveMessage",handleRecieveMessage);
-               // console.log("current not found");
+               socket.current.on("recieve-channel-message",handleReceiveChannelMessage);
                
                return ()=>{
                     socket.current.disconnect();
