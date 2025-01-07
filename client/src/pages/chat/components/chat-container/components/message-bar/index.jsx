@@ -108,7 +108,7 @@ const MessageBar=()=>{
                                    content:undefined,
                                    messageType:"file",
                                    fileUrl:response.data.filePath,
-
+                                   channelId:selectedChatData._id,
                               });
                          }
                          

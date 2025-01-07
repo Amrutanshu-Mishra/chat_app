@@ -7,13 +7,10 @@ import {
      DialogDescription,
      DialogHeader,
      DialogTitle,
-     DialogTrigger,
 } from "@/components/ui/dialog";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { apiClient } from "@/lib/api-client";
-import { CREATE_CHANNEL_ROUTE, GET_ALL_CONTACTS_ROUTES, HOST, SEARCH_CONTACTS_ROUTES } from "@/utils/constants";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { CREATE_CHANNEL_ROUTE, GET_ALL_CONTACTS_ROUTES } from "@/utils/constants";
 import { useAppStore } from "@/store";
 import { Button } from "@/components/ui/button";
 import MultipleSelector from "@/components/ui/multipleselect";
@@ -40,14 +37,7 @@ const CreateChannel = () => {
                       value: contact.value,  // Use 'value' for the unique identifier
                     }))
                );
-                  
-               // const sampleContacts = [
-               //      { label: "Test Contact 1", value: "1" },
-               //      { label: "Test Contact 2", value: "2" },
-               //    ];
-               //    setAllContacts(sampleContacts);
                console.log(allContacts);
-               
           };
           getData();
      },[]);
@@ -105,9 +95,7 @@ const CreateChannel = () => {
                               value={channelName}
                          />
                     </div>
-                    <div >
-                    
-                         
+                    <div>
                          <MultipleSelector
                               className="rounded-lg bg-[#2c2e3b] border-none py-2 text-white"
                               defaultOptions={allContacts}
