@@ -23,7 +23,7 @@ const Profile = () =>{
      const [hovered,setHovered]=useState(false);
      const [selectedColor,setSelectedColor]=useState(0);
      const fileInputRef=useRef(null);
-
+     
 
      useEffect(()=>{
           if(userInfo.profileSetup){
@@ -120,7 +120,7 @@ const Profile = () =>{
                     <div className="h-full w-32 md:w-48 md:h-48 relative flex items-center justify-center" onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)}>
                          <Avatar className="h-32 w-32 md:w-48 md:h-48 rounded-full overflow-hidden">
                               {
-                                   image ? (<AvatarImage src={image} alt="profile" className="object-cover w-full bg-black"/>)://${getColor(selectedColor)}
+                                   image ? (<AvatarImage src={image} alt="profile" className="object-cover w-full h-full bg-black"/>)://${getColor(selectedColor)}
                                    (<div className= {` uppercase h-32 w-32 md:w-48 md:h-48 text-5xl border-[1px] flex items-center justify-center rounded-full ${getColor(selectedColor)}`}>
                                         {firstName ? 
                                         firstName.split("").shift()
